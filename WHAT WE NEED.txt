@@ -1,0 +1,15 @@
+JEST
+
+Svelte testing library
+
+        user-event
+
+        jest-dom
+
+svelte-jester
+
+babel preset env  
+ 
+ 
+
+
