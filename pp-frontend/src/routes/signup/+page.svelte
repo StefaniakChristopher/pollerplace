@@ -1,20 +1,43 @@
+<script lang="ts">
+    let disabled: boolean = true
+    let username: string = ""
+    let email: string = ""
+    let password: string = ""
+    let repeatedPassword: string = ""
+
+    const enableSignUp = (username: string, email: string, password: string, repeatedPassword: string): void => {
+        if(username !== "" && email !== "" && password !== "" && repeatedPassword !== "") {
+            disabled = false
+         } else {
+            disabled = true
+         }
+    }
+
+    $: enableSignUp(username, email, password, repeatedPassword)
+
+    const submitSignUp = (): void => {
+        console.log(username)
+    }
+
+</script>
+
 <div class="body">
     <form class="signup-container">
         <h1>Sign Up</h1>
 
         <label for="emailInput">Email</label>
-        <input id="emailInput" name="emailInput" type="text" />
+        <input bind:value={email} id="emailInput" name="emailInput" type="text" />
 
         <label for="usernameInput">Username</label>
-        <input id="usernameInput" name="usernameInput" type="text" />
+        <input bind:value={username} id="usernameInput" name="usernameInput" type="text" />
 
         <label for="passwordInput">Password</label>
-        <input id="passwordInput" name="passwordInput" type="password" />
+        <input bind:value={password} id="passwordInput" name="passwordInput" type="password" />
 
         <label for="repeatPasswordInput">Repeat Password</label>
-        <input id="repeatPasswordInput" name="repeatPasswordInput" type="password" />
+        <input bind:value={repeatedPassword} id="repeatPasswordInput" name="repeatPasswordInput" type="password" />
 
-        <button disabled>Submit</button>
+        <button on:click|preventDefault={submitSignUp} {disabled}>Submit</button>
     </form>
 </div>
 
@@ -70,10 +93,25 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.7s ease;
     }
 
     button:hover {
         background-color: #45a049;
+    }
+
+    button:disabled {
+        width: 100%;
+        padding: 10px;
+        background-color: #b83524;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.7s ease;
+    }
+
+    button:disabled:hover {
+        cursor: not-allowed;
     }
 </style>

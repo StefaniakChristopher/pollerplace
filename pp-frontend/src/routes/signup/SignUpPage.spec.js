@@ -5,6 +5,13 @@ import SignUpPage from './+page.svelte';
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 
+const filloutForm = async () => {
+    await userEvent.type(emailInput, "something@mail.com")
+    await userEvent.type(usernameInput, "muhammad")
+    await userEvent.type(passwordInput, "muhammad123")
+    await userEvent.type(repeatPasswordInput, "muhammad123")
+}
+
 
 describe('Sign Up Page', () => {
 
@@ -53,10 +60,7 @@ describe('Sign Up Page', () => {
     it('but once the inputs are filled out and the passwords match it becomes enabled', async ()=> {
         render(SignUpPage)
         const submitButton = screen.getByRole("button", { name: "Submit" });
-        await userEvent.type(emailInput, "something@mail.com")
-        await userEvent.type(usernameInput, "muhammad")
-        await userEvent.type(passwordInput, "muhammad123")
-        await userEvent.type(repeatPasswordInput, "muhammad123")
+        await filloutForm()
         expect(submitButton).toBeEnabled()
     })
 })
