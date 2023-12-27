@@ -1,4 +1,8 @@
 <script lang="ts">
+    import axios from 'axios'
+
+    const host = "http://localhost:8080"
+
     let disabled: boolean = true
     let username: string = ""
     let email: string = ""
@@ -16,7 +20,7 @@
     $: enableSignUp(username, email, password, repeatedPassword)
 
     const submitSignUp = (): void => {
-        console.log(username)
+        axios.post(host + 'signup', { username, email, password} )
     }
 
 </script>

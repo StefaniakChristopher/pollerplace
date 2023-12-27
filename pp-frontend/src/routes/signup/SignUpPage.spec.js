@@ -4,12 +4,18 @@ import { render, screen} from '@testing-library/svelte';
 import SignUpPage from './+page.svelte';
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
+import axios from 'axios'
+import {jest} from '@jest/globals'
+
+const defaultEmail = "something@mail.com"
+const defaultUser = "muhammad"
+const defaultPass = "muhammad123"
 
 const filloutForm = async () => {
-    await userEvent.type(emailInput, "something@mail.com")
-    await userEvent.type(usernameInput, "muhammad")
-    await userEvent.type(passwordInput, "muhammad123")
-    await userEvent.type(repeatPasswordInput, "muhammad123")
+    await userEvent.type(emailInput, defaultEmail)
+    await userEvent.type(usernameInput, defaultUser)
+    await userEvent.type(passwordInput, defaultPass)
+    await userEvent.type(repeatPasswordInput, defaultPass)
 }
 
 
@@ -63,5 +69,27 @@ describe('Sign Up Page', () => {
         await filloutForm()
         expect(submitButton).toBeEnabled()
     })
+
+    it('sign up button sends a POST request to backend with the login info (username, pass, email)', async ()=> {
+        render(SignUpPage)
+        const submitButton = screen.getByRole("button", { name: "Submit" });
+        await filloutForm()
+
+        const mockFn = jest.fn()
+
+        axios.post = mockFn
+
+        await userEvent.click(submitButton)
+
+        const firstCall = mockFn.mock.calls[0]
+        const body = firstCall[1]
+        expect(body).toEqual({
+            username: defaultUser,
+            email: defaultEmail,
+            password: defaultPass
+        })   
+    })
+
+
 })
 
