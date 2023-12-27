@@ -21,8 +21,8 @@ func TestSignUpHandler(t *testing.T) {
 	router.POST("/signup", HandleSignUp)
 
 	jsonStr := `{"username": "muhammad", "email": "muhammad@mail.com", "password": "muhammad123"}`
-	w := performRequest(router, "POST", "/tasks", jsonStr)
-	if w.Code != http.StatusCreated {
-		t.Errorf("Expected status code %d but got %d", http.StatusCreated, w.Code)
+	w := performRequest(router, "POST", "/signup", jsonStr)
+	if w.Code != http.StatusOK {
+		t.Errorf("Expected status code %d but got %d", http.StatusOK, w.Code)
 	}
 }
