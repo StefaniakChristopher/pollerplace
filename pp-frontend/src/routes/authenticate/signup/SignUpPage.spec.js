@@ -36,7 +36,7 @@ describe('Sign Up Page', () => {
     it('has a password input', () => {
         render(SignUpPage);
         const passwordInput = screen.getByLabelText("Password", { label: "passwordInput"}, { type : "password"});
-        expect(usernameInput).toBeInTheDocument();
+        expect(passwordInput).toBeInTheDocument();
     })
 
     it('has a repeat password input', () => {
