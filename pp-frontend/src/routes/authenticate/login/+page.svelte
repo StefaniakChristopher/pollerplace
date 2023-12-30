@@ -1,11 +1,10 @@
 <script lang="ts">
     import axios from "axios";
+    import { host } from '../../../lib/index.js'
 
     let disabled: boolean = true
     let email: string = ""
     let password: string = ""
-
-    const host = "http://localhost:8080"
 
     const enableLogin = (email: string, password: string): void => {
         if(email !== "" && password !== "") {
@@ -18,7 +17,7 @@
     $: enableLogin(email, password)
 
     const submitLogin = (): void => {
-        axios.post(host + 'login', { email, password} )
+        axios.post(host + '/login', { email, password} )
     }
 </script>
 
