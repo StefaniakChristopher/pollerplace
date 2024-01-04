@@ -16,7 +16,7 @@
 
     $: enableLogin(email, password)
 
-    const submitLogin = (): void => {
+    const submitLogin = async(): Promise<void> => {
         axios.post(host + '/login', { email, password} )
     }
 </script>

@@ -6,6 +6,8 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import axios from 'axios'
 import {jest} from '@jest/globals'
+import { host } from '../../../lib/index.js'
+import { chromium } from 'playwright'
 
 const defaultEmail = "something@mail.com"
 const defaultPass = "muhammad123"
@@ -15,8 +17,23 @@ const filloutForm = async () => {
     await userEvent.type(passwordInput, defaultPass)
 }
 
+global.setImmediate = (callback, ...args) => {
+    setTimeout(callback, 0, ...args);
+  };
+  
+
 
 describe('Login Page', () => {
+
+    let browser;
+    let context;
+    let page;
+
+    beforeAll(async () => {
+        browser = await chromium.launch();
+        context = await browser.newContext();
+        page = await context.newPage();
+      });
 
     it('has a login header', () => {
         render(LoginPage);
@@ -42,20 +59,20 @@ describe('Login Page', () => {
         expect(submitButton).toBeInTheDocument();
     })
     
-    // it('that submit button starts off disabled', ()=> {
-    //     render(LoginPage)
-    //     const submitButton = screen.getByRole("button", { name: "Submit" });
-    //     expect(submitButton).toBeDisabled()
-    // })
+    it('that submit button starts off disabled', ()=> {
+        render(LoginPage)
+        const submitButton = screen.getByRole("button", { name: "Submit" });
+        expect(submitButton).toBeDisabled()
+    })
 
-    // it('but once the inputs are filled out and the passwords match it becomes enabled', async ()=> {
-    //     render(LoginPage)
-    //     const submitButton = screen.getByRole("button", { name: "Submit" });
-    //     await filloutForm()
-    //     expect(submitButton).toBeEnabled()
-    // })
+    it('but once the inputs are filled out and the passwords match it becomes enabled', async ()=> {
+        render(LoginPage)
+        const submitButton = screen.getByRole("button", { name: "Submit" });
+        await filloutForm()
+        expect(submitButton).toBeEnabled()
+    })
 
-    it('sign up button sends a POST request to backend with the login info (pass and email) to authenticate', async ()=> {
+    it('submit button sends a POST request to backend with the login info (pass and email) to authenticate (MOCK)', async ()=> {
         render(LoginPage)
         const submitButton = screen.getByRole("button", { name: "Submit" });
         await filloutForm()
@@ -74,6 +91,33 @@ describe('Login Page', () => {
         })   
     })
 
+   
+    it('submit button sends a POST request to backend with the login info (pass and email) to authenticate (NOT MOCK)', async () => {
+        const browser = await global.__BROWSER__;
+        const context = await browser.newContext();
+        const page = await context.newPage();
+    
+        await page.goto(host + '/login');
+    
+        await page.fill('input[name="emailInput"]', defaultEmail);
+        await page.fill('input[name="passwordInput"]', defaultPass);
+    
+        await page.click('button')
+       
+        const response = await page.waitForResponse(response => {
+            return response.url().includes('/login') && response.status() === 200;
+        });
+
+        expect(response.status()).toBe(200);
+    
+        await context.close();
+    });
+    
+
+    afterAll(async () => {
+        await browser.close();
+      });
+    
 
 })
 
