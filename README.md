@@ -42,7 +42,7 @@ Both are setup with unit testing capabilities
 - The frontend uses a combination of Jest and Svelte testing library
 
 ----------------------------------------
-HOW TO RUN TESTS
+HOW TO RUN
 
 Svelte Frontend:
 
@@ -55,3 +55,6 @@ Golang Backend:
     Navigate to ./pp-backend/main directory and type "go build" to create the exe and then type "./main.exe"
 
     Type "go test" to run the tests
+
+
+When both of these are started, navigate to "http://localhost:5173/authenticate/login" in the web browser
