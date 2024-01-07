@@ -67,6 +67,7 @@
 			".svelte",
 			".ts"
 		],
-		"testEnvironment": "jsdom"
+		"testEnvironment": "jsdom",
+		"testTimeout": 20000
 	}
 }

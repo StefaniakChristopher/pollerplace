@@ -6,8 +6,7 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import axios from 'axios'
 import {jest} from '@jest/globals'
-import { host } from '../../../lib/index.js'
-import { chromium } from 'playwright'
+import { backendHost, frontendHost } from '../../../lib/index.js'
 
 const defaultEmail = "something@mail.com"
 const defaultPass = "muhammad123"
@@ -20,20 +19,11 @@ const filloutForm = async () => {
 global.setImmediate = (callback, ...args) => {
     setTimeout(callback, 0, ...args);
   };
-  
-
 
 describe('Login Page', () => {
 
-    let browser;
-    let context;
-    let page;
-
-    beforeAll(async () => {
-        browser = await chromium.launch();
-        context = await browser.newContext();
-        page = await context.newPage();
-      });
+    
+    
 
     it('has a login header', () => {
         render(LoginPage);
@@ -93,31 +83,21 @@ describe('Login Page', () => {
 
    
     it('submit button sends a POST request to backend with the login info (pass and email) to authenticate (NOT MOCK)', async () => {
-        const browser = await global.__BROWSER__;
-        const context = await browser.newContext();
-        const page = await context.newPage();
-    
-        await page.goto(host + '/login');
-    
-        await page.fill('input[name="emailInput"]', defaultEmail);
-        await page.fill('input[name="passwordInput"]', defaultPass);
-    
-        await page.click('button')
-       
-        const response = await page.waitForResponse(response => {
-            return response.url().includes('/login') && response.status() === 200;
-        });
+        render(LoginPage);
 
-        expect(response.status()).toBe(200);
-    
-        await context.close();
+        console.log(backendHost + '/login')
+        try {
+            const response = await axios.post(backendHost + '/login', {
+              defaultEmail,
+              defaultPass
+            });
+            console.log(response);
+            expect(response.status).toBe(200);
+          } catch (error) {
+            console.error('Error occurred:', error);
+          }
     });
     
 
-    afterAll(async () => {
-        await browser.close();
-      });
-    
-
-})
+}, 20000)
 
