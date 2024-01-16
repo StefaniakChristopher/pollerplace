@@ -8,9 +8,10 @@
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
-		"sourceMap": true,
+		"sourceMap": false,
 		"strict": true,
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"types": ["cypress"]
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//

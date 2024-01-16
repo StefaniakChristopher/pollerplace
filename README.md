@@ -58,3 +58,9 @@ Golang Backend:
 
 
 When both of these are started, navigate to "http://localhost:5173/authenticate/login" in the web browser
+
+----------------------------------------
+
+EXPERIMENTAL
+
+Navigate to the frontend directory and type "npm run cypress:open" to open Cypress
