@@ -21,6 +21,7 @@
     }
 </script>
 
+
 <h1>Login</h1>
 
 <label for="emailInput">Email</label>
@@ -32,6 +33,8 @@
 <button on:click|preventDefault={submitLogin} {disabled}>Submit</button>
 
 <p>Don't have an account? <a href="../authenticate/signup">Sign Up</a></p>
+    
+
 
 <style>
     @import '../styles.css';

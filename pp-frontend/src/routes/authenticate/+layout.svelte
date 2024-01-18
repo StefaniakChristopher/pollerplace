@@ -1,20 +1,23 @@
-<form class="signuporlogin-container">
-    <slot/>
-</form>
+<body>
+    <form class="signuporlogin-container">
+        <slot/>
+    </form>
+</body>
+
+
+
 
 <style>
-    :global(body) {
-        background-color: #0D1321;
-        font-family: Arial, sans-serif;
+    body {
         background-color: #0D1321;
         justify-content: center;
-        align-items: center; 
+        align-items: center;
         display: flex;
-        height: 97vh;
-        width:97vw;
+        height: 100vh
     }
 
     .signuporlogin-container {
+        
         background-color: #FFEDDF;
         padding: 30px;
         border-radius: 8px;
