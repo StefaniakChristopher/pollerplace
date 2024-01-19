@@ -1,21 +1,23 @@
-<body>
+
+<div class="signuporlogin-container-alignment">
     <form class="signuporlogin-container">
         <slot/>
     </form>
-</body>
-
-
+</div>
 
 
 <style>
-    body {
+
+    :global(body) {
         background-color: #0D1321;
+        height: 98vh
+    }
+    .signuporlogin-container-alignment {
         justify-content: center;
         align-items: center;
         display: flex;
-        height: 100vh
+        height: 98vh
     }
-
     .signuporlogin-container {
         
         background-color: #FFEDDF;
@@ -25,6 +27,4 @@
         width: 300px;
         align-self: auto;
     }
-    
-   
 </style>
