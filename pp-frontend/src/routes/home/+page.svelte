@@ -31,6 +31,16 @@
   </div>
 </header>
 
+<nav>
+  <ul class="p-4 bg-cyan-700 w-1/12 flex-col flex align-middle ">
+    <li>Option 1</li>
+    <li>Option 2</li>
+    <li>Option 3</li>
+    <li>Option 4</li>
+    <li>Option 5</li>
+  </ul>
+</nav>
+
 <style>
   :global(body) {
     background-color: #0d1321;
